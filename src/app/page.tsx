@@ -148,7 +148,7 @@ export default async function Home() {
 
   return (
     <main>
-      <section className="relative bg-neutral-50">
+      <section className="relative bg-neutral-100">
         <div className="container mx-auto max-w-6xl px-4 py-16 md:py-24">
           <div className="mb-10 text-center">
             <h1 className="mb-4 text-4xl font-extrabold leading-tight tracking-tight md:text-5xl">
