@@ -1,11 +1,13 @@
 import Link from "next/link";
 import ArticlesSearch from "./ArticlesSearch";
+import YearMonthFilter from "./YearMonthFilter"; // ⟵ importe o filtro
 import { getAllArticles, buildSearchIndex, type ArticleIndexItem } from "@/lib/articles";
 
 export const metadata = {
   title: "Artigos | Guilherme Portella",
   description: "Artigos sobre arquitetura, Java, DDD e práticas modernas em engenharia de software.",
 };
+
 function parseFrontmatterDate(raw?: string):
   | { date: Date; isDateOnly: true; attr: string }
   | { date: Date; isDateOnly: false; attr: string }
@@ -64,6 +66,7 @@ function groupByMonth(items: ArticleIndexItem[]) {
     groups.set(id, g);
   }
 
+  // Ordena: anos desc, meses desc no agrupamento (a lista de seções).
   return Array.from(groups.values()).sort((a, b) =>
     a.key.year === b.key.year ? b.key.month - a.key.month : b.key.year - a.key.year
   );
@@ -85,20 +88,8 @@ export default async function ArticlesPage() {
 
       <ArticlesSearch index={searchIndex} />
 
-      {grouped.length > 0 && (
-        <nav className="text-sm text-neutral-600">
-          <span className="mr-2">Meses:</span>
-          <ul className="inline-flex flex-wrap gap-x-3 gap-y-2">
-            {grouped.map((g) => (
-              <li key={g.id}>
-                <a href={`#${g.id}`} className="hover:underline">
-                  {g.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+      {/* ⟵ Novo filtro de Ano → Meses */}
+      <YearMonthFilter groups={grouped.map(({ id, label, key }) => ({ id, label, key }))} />
 
       {grouped.length === 0 ? (
         <p className="text-neutral-500">Nenhum artigo publicado ainda.</p>
