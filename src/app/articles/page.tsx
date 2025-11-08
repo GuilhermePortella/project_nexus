@@ -1,6 +1,7 @@
+import { Suspense } from "react";
 import Link from "next/link";
 import ArticlesSearch from "./ArticlesSearch";
-import YearMonthFilter from "./YearMonthFilter"; // ⟵ importe o filtro
+import YearMonthFilter from "./YearMonthFilter";
 import { getAllArticles, buildSearchIndex, type ArticleIndexItem } from "@/lib/articles";
 
 export const metadata = {
@@ -8,7 +9,9 @@ export const metadata = {
   description: "Artigos sobre arquitetura, Java, DDD e práticas modernas em engenharia de software.",
 };
 
-function parseFrontmatterDate(raw?: string):
+function parseFrontmatterDate(
+  raw?: string
+):
   | { date: Date; isDateOnly: true; attr: string }
   | { date: Date; isDateOnly: false; attr: string }
   | null {
@@ -66,7 +69,7 @@ function groupByMonth(items: ArticleIndexItem[]) {
     groups.set(id, g);
   }
 
-  // Ordena: anos desc, meses desc no agrupamento (a lista de seções).
+  // Ordena: anos desc, meses desc
   return Array.from(groups.values()).sort((a, b) =>
     a.key.year === b.key.year ? b.key.month - a.key.month : b.key.year - a.key.year
   );
@@ -86,10 +89,16 @@ export default async function ArticlesPage() {
         </p>
       </header>
 
-      <ArticlesSearch index={searchIndex} />
+      {/* 🔐 Precisam de Suspense se usarem useSearchParams */}
+      <Suspense fallback={<div className="text-sm text-neutral-500">Carregando busca…</div>}>
+        <ArticlesSearch index={searchIndex} />
+      </Suspense>
 
-      {/* ⟵ Novo filtro de Ano → Meses */}
-      <YearMonthFilter groups={grouped.map(({ id, label, key }) => ({ id, label, key }))} />
+      <Suspense fallback={null}>
+        <YearMonthFilter
+          groups={grouped.map(({ id, label, key }) => ({ id, label, key }))}
+        />
+      </Suspense>
 
       {grouped.length === 0 ? (
         <p className="text-neutral-500">Nenhum artigo publicado ainda.</p>
