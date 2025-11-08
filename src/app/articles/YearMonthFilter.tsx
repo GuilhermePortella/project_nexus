@@ -2,25 +2,16 @@
 
 import { useEffect, useMemo, useState } from "react";
 
-type GroupKey = { year: number; month: number }; // coerente com page.tsx
+type GroupKey = { year: number; month: number };
 type GroupLite = { id: string; label: string; key: GroupKey };
 
 type Props = {
    groups: GroupLite[];
 };
 
-/**
- * Componente de filtro por ano/mês com acessibilidade corrigida:
- * - role="tablist" no container
- * - role="tab" em cada item
- * - aria-selected em vez de aria-pressed
- * 
- * Não depende de useSearchParams; ativa com base no hash atual (#YYYY-MM).
- */
 export default function YearMonthFilter({ groups }: Props) {
    const [activeId, setActiveId] = useState<string | null>(null);
 
-   // indexa por ano -> meses
    const byYear = useMemo(() => {
       const map = new Map<number, GroupLite[]>();
       for (const g of groups) {
@@ -28,7 +19,6 @@ export default function YearMonthFilter({ groups }: Props) {
          arr.push(g);
          map.set(g.key.year, arr);
       }
-      // ordena anos desc e meses desc
       return Array.from(map.entries())
          .sort((a, b) => b[0] - a[0])
          .map(([year, arr]) => [
@@ -37,7 +27,6 @@ export default function YearMonthFilter({ groups }: Props) {
          ]) as Array<[number, GroupLite[]]>;
    }, [groups]);
 
-   // sincronia com hash atual
    useEffect(() => {
       const applyFromHash = () => {
          const hash = typeof window !== "undefined" ? window.location.hash : "";
@@ -51,14 +40,12 @@ export default function YearMonthFilter({ groups }: Props) {
 
    const handleClick = (id: string) => {
       setActiveId(id);
-      // atualiza hash e faz scroll suave para o h2 correspondente
       if (typeof window !== "undefined") {
          const el = document.getElementById(id);
          if (el) {
             history.replaceState(null, "", `#${id}`);
             el.scrollIntoView({ behavior: "smooth", block: "start" });
          } else {
-            // fallback: só atualiza hash
             location.hash = `#${id}`;
          }
       }
@@ -79,7 +66,6 @@ export default function YearMonthFilter({ groups }: Props) {
                            key={id}
                            role="tab"
                            aria-selected={isActive}
-                           // aria-pressed REMOVIDO
                            onClick={() => handleClick(id)}
                            className={[
                               "rounded-md border px-2.5 py-1 text-sm transition",

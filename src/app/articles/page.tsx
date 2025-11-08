@@ -49,7 +49,7 @@ function monthTitle(date: Date, forceUTC = false): string {
   return `${m.charAt(0).toUpperCase()}${m.slice(1)}`;
 }
 
-type GroupKey = { year: number; month: number }; // month 0..11
+type GroupKey = { year: number; month: number };
 
 function groupByMonth(items: ArticleIndexItem[]) {
   const groups = new Map<string, { key: GroupKey; label: string; id: string; items: ArticleIndexItem[] }>();
@@ -68,8 +68,6 @@ function groupByMonth(items: ArticleIndexItem[]) {
     g.items.push(a);
     groups.set(id, g);
   }
-
-  // Ordena: anos desc, meses desc
   return Array.from(groups.values()).sort((a, b) =>
     a.key.year === b.key.year ? b.key.month - a.key.month : b.key.year - a.key.year
   );
@@ -88,8 +86,6 @@ export default async function ArticlesPage() {
           Posts agrupados por mês, com busca que encontra título, resumo e conteúdo.
         </p>
       </header>
-
-      {/* 🔐 Precisam de Suspense se usarem useSearchParams */}
       <Suspense fallback={<div className="text-sm text-neutral-500">Carregando busca…</div>}>
         <ArticlesSearch index={searchIndex} />
       </Suspense>
