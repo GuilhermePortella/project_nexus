@@ -3,13 +3,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-// Ajuste o tipo abaixo se o seu buildSearchIndex devolver outra forma
 export type ArticleSearchDoc = {
   slug: string;
   title: string;
   summary?: string;
   publishedAt?: string;
-  content: string; // texto plain para busca
+  content: string;
 };
 
 type Props = {
@@ -23,17 +22,14 @@ export default function ArticlesSearch({ index }: Props) {
 
   const [query, setQuery] = useState<string>(searchParams.get("q") ?? "");
 
-  // Sincroniza o estado quando mudar via back/forward
   useEffect(() => {
     const q = searchParams.get("q") ?? "";
     setQuery(q);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
-    // busca bem simples
     return index
       .filter((d) => {
         const hay = `${d.title} ${d.summary ?? ""} ${d.content}`.toLowerCase();
