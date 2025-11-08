@@ -92,8 +92,7 @@ export default async function ArticlesPage() {
 
       <Suspense fallback={null}>
         <YearMonthFilter
-          groups={grouped.map(({ id, label, key }) => ({ id, label, key }))}
-        />
+          groups={grouped.map(({ id, label, key }) => ({ id, label, key }))} />
       </Suspense>
 
       {grouped.length === 0 ? (
