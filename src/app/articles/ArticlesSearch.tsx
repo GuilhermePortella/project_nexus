@@ -1,117 +1,92 @@
-// src/app/articles/ArticlesSearch.tsx
 "use client";
 
-import React, { useMemo, useState } from "react";
-import Link from "next/link";
-import type { ArticleSearchDoc } from "@/lib/articles";
+import { useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function highlight(text: string, query: string): React.ReactNode {
-  if (!query.trim()) return <>{text}</>;
-  const q = query.trim();
-  const esc = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const re = new RegExp(esc, "ig");
-  const parts: (string | React.ReactNode)[] = [];
-  let last = 0;
-  let m: RegExpExecArray | null;
+// Ajuste o tipo abaixo se o seu buildSearchIndex devolver outra forma
+export type ArticleSearchDoc = {
+  slug: string;
+  title: string;
+  summary?: string;
+  publishedAt?: string;
+  content: string; // texto plain para busca
+};
 
-  while ((m = re.exec(text)) !== null) {
-    if (m.index > last) parts.push(text.slice(last, m.index));
-    parts.push(
-      <mark key={m.index} className="bg-yellow-200 rounded px-0.5">
-        {m[0]}
-      </mark>
-    );
-    last = m.index + m[0].length;
-  }
-  if (last < text.length) parts.push(text.slice(last));
-  return <>{parts}</>;
-}
+type Props = {
+  index: ArticleSearchDoc[];
+};
 
-function makeSnippet(content: string, query: string, max = 160): string {
-  if (!query.trim()) return "";
-  const idx = content.toLowerCase().indexOf(query.toLowerCase());
-  if (idx < 0) return content.slice(0, max) + (content.length > max ? "…" : "");
-  const start = Math.max(0, idx - Math.floor(max / 2));
-  const end = Math.min(content.length, start + max);
-  const prefix = start > 0 ? "…" : "";
-  const suffix = end < content.length ? "…" : "";
-  return prefix + content.slice(start, end) + suffix;
-}
+export default function ArticlesSearch({ index }: Props) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
-function normalize(s: string) {
-  return s.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
-}
+  const [query, setQuery] = useState<string>(searchParams.get("q") ?? "");
 
-export default function ArticlesSearch({ index }: { index: ArticleSearchDoc[] }) {
-  const [q, setQ] = useState("");
+  // Sincroniza o estado quando mudar via back/forward
+  useEffect(() => {
+    const q = searchParams.get("q") ?? "";
+    setQuery(q);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
   const results = useMemo(() => {
-    const query = q.trim();
-    if (!query) return [];
-    const nq = normalize(query);
-    return index.filter((doc) => {
-      const hay = [
-        normalize(doc.title),
-        normalize(doc.summary ?? ""),
-        normalize(doc.content),
-      ].join(" ");
-      return hay.includes(nq);
-    });
-  }, [q, index]);
+    const q = query.trim().toLowerCase();
+    if (!q) return [];
+    // busca bem simples
+    return index
+      .filter((d) => {
+        const hay = `${d.title} ${d.summary ?? ""} ${d.content}`.toLowerCase();
+        return hay.includes(q);
+      })
+      .slice(0, 10);
+  }, [index, query]);
+
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const params = new URLSearchParams(searchParams);
+    if (query) params.set("q", query);
+    else params.delete("q");
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   return (
     <section className="space-y-3">
-      <div className="flex items-center gap-2">
+      <form onSubmit={onSubmit} className="flex gap-2">
         <input
           type="search"
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder="Buscar por título, resumo ou conteúdo…"
-          className="w-full rounded-lg border px-3 py-2 outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full rounded-lg border border-neutral-300 px-3 py-2 outline-none focus:ring-2 focus:ring-neutral-800"
           aria-label="Buscar artigos"
         />
-        {q && (
-          <button
-            onClick={() => setQ("")}
-            className="text-sm text-neutral-600 hover:text-neutral-900"
-            aria-label="Limpar busca"
-          >
-            Limpar
-          </button>
-        )}
-      </div>
+        <button
+          type="submit"
+          className="rounded-lg border border-neutral-900 px-4 py-2 font-medium hover:bg-neutral-900 hover:text-white transition"
+        >
+          Buscar
+        </button>
+      </form>
 
-      {q && (
-        <div className="space-y-2">
-          <div className="text-sm text-neutral-600">
-            {results.length} resultado{results.length === 1 ? "" : "s"} para{" "}
-            <strong>“{q}”</strong>
-          </div>
-
+      {query && (
+        <div className="rounded-lg border border-neutral-200 p-3">
           {results.length === 0 ? (
-            <p className="text-neutral-500">Nada encontrado. Tente outra palavra ou frase.</p>
+            <p className="text-sm text-neutral-600">
+              Nenhum resultado para “{query}”.
+            </p>
           ) : (
-            <ul className="space-y-3">
-              {results.map((r) => {
-                const snippet = makeSnippet(r.content, q);
-                return (
-                  <li key={r.slug} className="leading-relaxed">
-                    <Link href={`/articles/${r.slug}/`} className="text-blue-700 hover:underline">
-                      {highlight(r.title, q)}
-                    </Link>
-                    {r.summary && (
-                      <div className="text-sm text-neutral-600">
-                        {highlight(r.summary, q)}
-                      </div>
-                    )}
-                    {snippet && (
-                      <div className="text-xs text-neutral-500">
-                        {highlight(snippet, q)}
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
+            <ul className="space-y-2">
+              {results.map((r) => (
+                <li key={r.slug}>
+                  <a
+                    href={`/articles/${r.slug}/`}
+                    className="underline hover:no-underline"
+                  >
+                    {r.title}
+                  </a>
+                </li>
+              ))}
             </ul>
           )}
         </div>
