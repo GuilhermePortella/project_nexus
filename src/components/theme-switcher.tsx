@@ -7,11 +7,9 @@ export function ThemeSwitcher() {
   const { theme, setTheme, systemTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
-  // Evita hydration mismatch (Next.js padrão)
   useEffect(() => setMounted(true), [])
   if (!mounted) return null
 
-  // Determina tema atual (respeita o sistema)
   const currentTheme = theme === 'system' ? systemTheme : theme
 
   return (

@@ -14,9 +14,9 @@ type ArticleIndexItem = {
 };
 
 type Group = {
-  id: string; // "YYYY-MM"
-  label: string; // "YYYY - Mês"
-  key: { year: number; month: number }; // month 0..11
+  id: string;
+  label: string;
+  key: { year: number; month: number };
   items: ArticleIndexItem[];
 };
 
@@ -41,7 +41,6 @@ export default function ArticlesByYearList({ groups }: { groups: Group[] }) {
   const selectedYear =
     urlYear && /^\d{4}$/.test(urlYear) ? parseInt(urlYear, 10) : null;
 
-  // fallback: se não há ?year, mostra o ano mais recente presente
   const yearsPresent = Array.from(
     new Set(groups.map((g) => g.key.year))
   ).sort((a, b) => b - a);
