@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-// Links principais do site
 const LINKS = [
   { href: "/", label: "Início" },
   { href: "/projects", label: "Projetos" },
