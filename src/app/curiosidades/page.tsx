@@ -18,7 +18,7 @@ export default function CuriosidadesPage() {
       <section className="space-y-4">
         <h2 className="text-2xl font-semibold">Filmes & Séries</h2>
         <p className="text-neutral-900">
-          Quando não estou modelando domínios, provavelmente estou revendo algo daqui:
+          Quando não estou esttudando ou trabalhando, provavelmente estou fazendo alguma coisa dessa lista:
         </p>
         <ul className="list-disc list-inside text-neutral-900 space-y-1">
           <li>🎬 <em>Interstellar</em> (Nolan)</li>
