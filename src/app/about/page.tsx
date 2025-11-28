@@ -70,12 +70,12 @@ export default function AboutPage() {
         <h2 className="text-2xl font-semibold">Contatos</h2>
         <ul className="space-y-2">
           <li>
-            <Link href="mailto:guilherme@guilhermeportella.com.br" className="hover:underline">
+            <Link href="mailto:guilhermeportella.dev@gmail.com" className="hover:underline">
               ✉️ E-mail profissional
             </Link>
           </li>
           <li>
-            <Link href="https://www.linkedin.com/in/guilherme-portella/" target="_blank" className="hover:underline">
+            <Link href="https://www.linkedin.com/in/myprofileguilhermeportella/" target="_blank" className="hover:underline">
               💼 LinkedIn
             </Link>
           </li>
@@ -85,7 +85,7 @@ export default function AboutPage() {
             </Link>
           </li>
           <li>
-            <Link href="https://x.com/guilhermepcodes" target="_blank" className="hover:underline">
+            <Link href="https://x.com/portellaEu" target="_blank" className="hover:underline">
               🐦 X (Twitter)
             </Link>
           </li>
