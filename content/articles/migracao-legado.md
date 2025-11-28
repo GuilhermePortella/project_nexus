@@ -81,6 +81,7 @@ public class ProcessarPagamentoService implements ProcessarPagamentoUseCase {
         gateway.notificar(pagamento);
     }
 }
+```
 
 Esse design permite que o mesmo caso de uso seja reutilizado via REST, mensageria ou CLI, sem duplicação de lógica.
 
