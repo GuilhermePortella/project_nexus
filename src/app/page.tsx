@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "@/components/Footer";
 import { getAllArticles } from "@/lib/articles";
 
 function safeDate(d?: string): Date | null {
@@ -127,7 +128,7 @@ export default async function Home() {
       id: "ddd",
       question: "DDD vale a pena em times pequenos?",
       answer:
-        "Quando há linguagem ubíqua e regras de negócio não triviais, sim — o ganho está na clareza do modelo, não no tamanho do time.",
+        "Quando há linguagem ubíqua e regras de negócio não triviais, sim , o ganho está na clareza do modelo, não no tamanho do time.",
       links: [{ href: "/articles/sua-slug-ddd/", label: "Artigo DDD" }],
     },
     {
@@ -172,7 +173,7 @@ export default async function Home() {
             />
             <CTAcard
               title="Sobre"
-              description="Perfil, trajetória e visão de engenharia — direto ao ponto."
+              description="Perfil, trajetória e visão de engenharia , direto ao ponto."
               linkText="Abrir página Sobre"
               href="/about"
             />
@@ -257,6 +258,8 @@ export default async function Home() {
           <FaqGrid items={faqCanonicas} />
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

@@ -1,6 +1,6 @@
-// src/app/about/page.tsx
 import Image from "next/image";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 
 export default function AboutPage() {
   return (
@@ -45,8 +45,8 @@ export default function AboutPage() {
             <strong>guilhermeportella.com.br</strong>
           </a>
           , é o meu hub pessoal: aqui organizo meus <strong>planos de estudo</strong> e publico notas sobre
-          <strong> arquitetura de software</strong>, engenharia e liderança técnica. O objetivo é registrar, de forma honesta e iterativa,
-          como projetar e evoluir sistemas complexos — equilibrando decisões de <strong>governança</strong> e <strong>migração</strong> com a prática
+          <strong> arquitetura de software</strong>, engenharia e liderança técnica. O objetivo é registrar, de forma linear e iterativa,
+          como projetar e evoluir sistemas complexos, equilibrando decisões de <strong>governança</strong> e <strong>migração</strong> com a prática
           cotidiana de desenvolvimento e revisão de código.
         </p>
 
@@ -59,8 +59,8 @@ export default function AboutPage() {
         </p>
 
         <p>
-          Meu foco atual é 100% voltado a <strong>arquitetura moderna</strong> e <strong>governança técnica</strong> — incluindo
-          <strong> estratégias de migração</strong>, <strong>liderança de times</strong> e <strong>desenho de ecossistemas distribuídos</strong> — sem perder a conexão com
+          Meu foco atual é 100% voltado a <strong>arquitetura moderna</strong> e <strong>governança técnica</strong> incluindo
+          <strong> estratégias de migração</strong>, <strong>liderança de times</strong> e <strong>desenho de ecossistemas distribuídos</strong> sem perder a conexão com
           padrões de código, boas práticas e fundamentos que sustentam a engenharia de longo prazo.
         </p>
       </section>
@@ -91,6 +91,8 @@ export default function AboutPage() {
           </li>
         </ul>
       </section>
+
+      <Footer />
     </main>
   );
 }

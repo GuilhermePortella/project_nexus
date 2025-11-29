@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Curiosidades | Guilherme Portella",
-  description: "Filmes, séries e músicas que gosto — sessão não-técnica do site.",
+  description: "Filmes, séries e músicas que gosto , sessão não-técnica do site.",
 };
 
 export default function CuriosidadesPage() {
@@ -90,17 +91,15 @@ export default function CuriosidadesPage() {
         </div>
       </section>
 
-      <section className="space-y-3 pl-2 border-l-2">
-        <div>
-          {/* Música  <h2 className="text-2xl font-semibold text-red-600 flex items-center gap-2 mb-2">*/}
-          <h2 className="text-lg font-semibold text-red-600 flex items-center gap-2">
-
+      <section className="space-y-6">
+        <div className="space-y-3 pl-2 border-l-2 border-red-500">
+          <h3 className="text-lg font-semibold text-red-600 flex items-center gap-2">
             🎵 Músicas
-          </h2>
+          </h3>
           <p className="text-neutral-700 text-sm">Minha trilha sonora pessoal</p>
         </div>
 
-        <div className="border-red-500 pl-4">
+        <div className="rounded-xl overflow-hidden">
           <iframe
             title="Playlist do Spotify — Guilherme Portella"
             data-testid="embed-iframe"
@@ -127,6 +126,8 @@ export default function CuriosidadesPage() {
           </a>
         </p>
       </section>
+
+      <Footer />
     </main>
   );
 }

@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 import ArticlesSearch from "./ArticlesSearch";
 import YearMonthFilter from "./YearMonthFilter";
 import { getAllArticles, buildSearchIndex, type ArticleIndexItem } from "@/lib/articles";
@@ -153,6 +154,8 @@ export default async function ArticlesPage() {
           ))}
         </section>
       )}
+
+      <Footer />
     </main>
   );
 }
