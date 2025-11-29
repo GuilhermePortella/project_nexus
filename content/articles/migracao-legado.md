@@ -18,7 +18,7 @@ seo:
 
 ## Introdução
 
-Migrar um sistema legado é, antes de tudo, um exercício de **cirurgia arquitetural** — o desafio é intervir sem interromper o paciente.  
+Migrar um sistema legado é, antes de tudo, um exercício de **cirurgia arquitetural** , o desafio é intervir sem interromper o paciente.  
 A arquitetura hexagonal (Ports and Adapters) surge como uma ferramenta para tornar essa transição **segura, incremental e reversível**.  
 Ao invés de um “big bang”, a estratégia é **desacoplar, isolar e reconstruir em torno de um núcleo estável**, permitindo que novas funcionalidades coexistam com o código antigo até que a migração esteja completa.
 
@@ -28,12 +28,12 @@ Este artigo aprofunda o **“como”** dessa transição: quais princípios guia
 
 ## 1. O dilema da modernização contínua
 
-Reescrever tudo do zero costuma ser tentador — o desenvolvedor imagina uma base limpa, moderna e sem dívidas. Mas, na prática, isso **raramente é sustentável**.  
+Reescrever tudo do zero costuma ser tentador , o desenvolvedor imagina uma base limpa, moderna e sem dívidas. Mas, na prática, isso **raramente é sustentável**.  
 Enquanto a reescrita ocorre, o negócio continua evoluindo. Novas regras são criadas, clientes seguem operando, e o backlog não para.  
 O resultado? Dois sistemas competindo: o legado que ainda funciona e o novo que ainda não entrega valor.
 
 A arquitetura hexagonal oferece uma **saída realista**: preservar o funcionamento atual enquanto se refatora o interior da aplicação de forma controlada.  
-Não é sobre apagar o passado — é sobre **refatorar o presente com visão de futuro**.
+Não é sobre apagar o passado , é sobre **refatorar o presente com visão de futuro**.
 
 ---
 
@@ -43,7 +43,7 @@ Antes de aplicar o padrão, é preciso **entender o que realmente constitui o �
 Um erro comum é começar movendo repositórios, controladores e DTOs, quando o que deve ser isolado primeiro são **as regras de negócio puras**, aquelas que respondem à pergunta:  
 > “Se eu tirasse o banco de dados e o framework web, ainda teria lógica de negócio útil aqui?”
 
-Essas regras são o **coração** do sistema. Tudo ao redor — persistência, transporte, APIs, mensageria — são **periféricos substituíveis**.  
+Essas regras são o **coração** do sistema. Tudo ao redor , persistência, transporte, APIs, mensageria , são **periféricos substituíveis**.  
 A meta inicial é protegê-las em um núcleo isolado, livre de dependências.
 
 ---
@@ -59,7 +59,7 @@ O princípio é simples:
 
 ### 3.1. Separar casos de uso do transporte
 
-Cada endpoint, fila ou comando CLI deve invocar uma **porta de entrada** (input port) — uma interface que representa um caso de uso.  
+Cada endpoint, fila ou comando CLI deve invocar uma **porta de entrada** (input port) , uma interface que representa um caso de uso.  
 A implementação concreta desse caso de uso é um **interactor** (ou application service).  
 Assim, controladores, filas e jobs não conhecem detalhes internos: eles apenas chamam a porta e recebem o resultado.
 
@@ -90,7 +90,7 @@ Esse design permite que o mesmo caso de uso seja reutilizado via REST, mensageri
 
 Da mesma forma, as operações de leitura e escrita são expostas por **portas de saída (output ports)**.  
 No início, essas interfaces podem simplesmente delegar ao DAO legado, servindo como um *adaptador temporário*.  
-Isso cria uma fronteira de isolamento — o domínio não sabe mais quem persiste os dados, apenas que alguém o faz.
+Isso cria uma fronteira de isolamento , o domínio não sabe mais quem persiste os dados, apenas que alguém o faz.
 
 ---
 
@@ -98,7 +98,7 @@ Isso cria uma fronteira de isolamento — o domínio não sabe mais quem persist
 
 A aplicação prática dessa abordagem pode ser organizada em três fases:
 
-### 4.1. Fase 1 — Identificação e encapsulamento
+### 4.1. Fase 1 , Identificação e encapsulamento
 
 - Mapeie os módulos com maior valor de negócio.  
 - Extraia casos de uso em classes independentes.  
@@ -109,7 +109,7 @@ A aplicação prática dessa abordagem pode ser organizada em três fases:
 
 ---
 
-### 4.2. Fase 2 — Substituição progressiva dos adaptadores
+### 4.2. Fase 2 , Substituição progressiva dos adaptadores
 
 Com o domínio estabilizado, comece a substituir adaptadores legados por implementações modernas:
 
@@ -117,11 +117,11 @@ Com o domínio estabilizado, comece a substituir adaptadores legados por impleme
 - **Chamadas SOAP → adaptadores REST ou gRPC.**  
 - **Jobs schedulados → eventos via mensageria.**
 
-O domínio não é afetado, pois só conhece as portas — o contrato permanece o mesmo.
+O domínio não é afetado, pois só conhece as portas , o contrato permanece o mesmo.
 
 ---
 
-### 4.3. Fase 3 — Embrulhar o legado e expandir
+### 4.3. Fase 3 , Embrulhar o legado e expandir
 
 Use o **Strangler Pattern** para permitir que novas funcionalidades coexistam com o legado.  
 Isso pode significar:
@@ -130,14 +130,14 @@ Isso pode significar:
 - Criar APIs modernas que apenas delegam ao código antigo por trás das portas.  
 - Migrar módulos um a um, até que o legado possa ser desativado sem interrupção.
 
-**Ganho:** paralelização da modernização — a operação continua e o código evolui em ciclos curtos.
+**Ganho:** paralelização da modernização , a operação continua e o código evolui em ciclos curtos.
 
 ---
 
 ## 5. Testabilidade e governança da transição
 
 Cada nova porta deve vir acompanhada de **testes unitários e de integração por contrato**.  
-A ideia é que o domínio seja totalmente testável sem infraestrutura real — bancos de dados e APIs externas são simuladas via *mocks* ou *stubs*.
+A ideia é que o domínio seja totalmente testável sem infraestrutura real , bancos de dados e APIs externas são simuladas via *mocks* ou *stubs*.
 
 Além disso:
 
@@ -154,7 +154,7 @@ Isso transforma a migração em um processo **previsível e observável**, evita
 Aplicar arquitetura hexagonal em legados exige disciplina.  
 Alguns desafios inevitáveis:
 
-- **Sobrecarga inicial:** o código parece “crescer” antes de melhorar — portas, interfaces e testes demandam esforço.  
+- **Sobrecarga inicial:** o código parece “crescer” antes de melhorar , portas, interfaces e testes demandam esforço.  
 - **Curva de aprendizado:** times acostumados a frameworks opinativos (ex.: Spring Data, JPA direto no service) precisam mudar o modelo mental.  
 - **Complexidade de integração:** partes do legado continuarão coexistindo por um bom tempo, o que exige padronização de contratos e monitoramento.
 
@@ -180,7 +180,7 @@ Migrar um legado para arquitetura hexagonal **sem parar o mundo** é um desafio 
 Não se trata de trocar frameworks ou pastas de lugar, mas de reconstruir fronteiras lógicas entre o que é essencial (**regras de negócio**) e o que é acidental (**tecnologia, persistência, transporte**).
 
 Com **disciplina incremental, automação e uma visão clara de domínio**, é possível modernizar sistemas complexos sem reescrita total.  
-A recompensa é um sistema preparado para o futuro — **testável, extensível e tecnologicamente livre.**
+A recompensa é um sistema preparado para o futuro , **testável, extensível e tecnologicamente livre.**
 
 > Na prática, a modernização inteligente é aquela que respeita o passado, mas o transcende com método.  
 > A **Arquitetura Hexagonal** é o caminho para isso: **evoluir sem interromper.**

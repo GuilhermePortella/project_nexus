@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Curiosidades | Guilherme Portella",
-  description: "Filmes, séries e músicas que gosto — sessão não-técnica do site.",
+  description: "Filmes, séries e músicas que gosto , sessão não-técnica do site.",
 };
 
 export default function CuriosidadesPage() {
@@ -102,7 +102,7 @@ export default function CuriosidadesPage() {
 
         <div className="border-red-500 pl-4">
           <iframe
-            title="Playlist do Spotify — Guilherme Portella"
+            title="Playlist do Spotify , Guilherme Portella"
             data-testid="embed-iframe"
             style={{ borderRadius: 12 }}
             src="https://open.spotify.com/embed/playlist/3LuwLZF9DuqtT5n92wCmcU?utm_source=generator&theme=0"

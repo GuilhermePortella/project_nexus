@@ -9,7 +9,7 @@ publishedDate: "2025-10-19"
 ## Introdução
 
 Em projetos de software e sites técnicos, o código raramente é o único ativo que precisa de arquitetura.  
-O conteúdo — especialmente em blogs técnicos, hubs de conhecimento e portfólios — também exige previsibilidade, rastreabilidade e padronização.  
+O conteúdo , especialmente em blogs técnicos, hubs de conhecimento e portfólios , também exige previsibilidade, rastreabilidade e padronização.  
 A decisão de utilizar **YAML Front Matter** no início de cada artigo reflete essa mentalidade: **tratar o conteúdo como código**.
 
 ---
@@ -24,7 +24,7 @@ O sistema não sabe quem é o autor, quando foi publicado ou como exibir um resu
 - Problemas de SEO e indexação;  
 - Inconsistência visual e estrutural entre páginas.
 
-O resultado é uma experiência despadronizada — para leitor e desenvolvedor.
+O resultado é uma experiência despadronizada , para leitor e desenvolvedor.
 
 ---
 
@@ -116,7 +116,7 @@ Adotar YAML Front Matter concretiza o princípio **Content as Code**:
 ## Arquitetura limpa aplicada ao conteúdo
 
 Assim como a Arquitetura Limpa isola camadas, o Front Matter separa **estrutura de dados** do **corpo narrativo**.  
-O renderizador (Next.js + componentes React) pode evoluir sem tocar no conteúdo — e vice-versa.  
+O renderizador (Next.js + componentes React) pode evoluir sem tocar no conteúdo , e vice-versa.  
 Isso reduz acoplamento, facilita refatorações visuais e mantém o domínio editorial independente da apresentação.
 
 ---
@@ -134,5 +134,5 @@ Isso reduz acoplamento, facilita refatorações visuais e mantém o domínio edi
 ## Conclusão
 
 **YAML Front Matter é decisão arquitetural, não detalhe cosmético.**  
-Traz previsibilidade, automação e clareza semântica ao pipeline de conteúdo — com custo operacional mínimo e excelente escalabilidade editorial.  
+Traz previsibilidade, automação e clareza semântica ao pipeline de conteúdo , com custo operacional mínimo e excelente escalabilidade editorial.  
 Cada artigo torna-se um artefato autocontido, validável e versionável, alinhado à disciplina de engenharia que aplicamos ao código.
