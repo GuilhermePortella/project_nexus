@@ -25,7 +25,7 @@ export default function SiteNav() {
         {/* Navegação principal */}
         <ul className="site-links" role="list">
           {LINKS.map(({ href, label }) => {
-            const clean = href.replace(/\/+$/, "");
+            const clean = href.replace(/\/+$/, "") || "/";
             const active =
               pathname === clean || (clean !== "/" && pathname.startsWith(clean));
 
