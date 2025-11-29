@@ -260,6 +260,9 @@ export default async function Home() {
       </section>
 
       <Footer />
+
+      <br />
+      <br />
     </main>
   );
 }
