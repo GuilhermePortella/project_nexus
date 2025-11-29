@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 import { getArticleHtmlBySlug, getAllArticles } from "@/lib/articles";
 import ArticleTOC from "../ArticleTOC";
 
@@ -164,6 +165,8 @@ export default async function ArticlePage({
           </a>
         </div>
       </article>
+
+      <Footer />
     </main>
   );
 }

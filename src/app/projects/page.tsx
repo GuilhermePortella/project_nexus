@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Footer from "@/components/Footer";
 import ProjectCard from "./ProjectCard";
 
 type Repo = {
@@ -263,9 +264,7 @@ export default function ProjectsPage() {
         </>
       )}
 
-      <footer className="text-center text-sm text-neutral-500 border-t pt-6">
-        © {new Date().getFullYear()} Guilherme Portella
-      </footer>
+      <Footer />
     </main>
   );
 }

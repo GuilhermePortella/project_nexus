@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Footer from "@/components/Footer";
 import { getAllArticles } from "@/lib/articles";
 
 function safeDate(d?: string): Date | null {
@@ -257,6 +258,8 @@ export default async function Home() {
           <FaqGrid items={faqCanonicas} />
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }
