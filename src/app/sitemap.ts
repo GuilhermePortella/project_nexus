@@ -1,10 +1,10 @@
 export const dynamic = "force-static";
-export const revalidate = 3600;            
+export const revalidate = 3600;
 
 import type { MetadataRoute } from "next";
 import { getAllArticles } from "@/lib/articles";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://project-nexus-nine.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const items = await getAllArticles();
@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       : now;
 
     urls.push({
-      url: `${BASE_URL}/articles/${a.slug}/`, 
+      url: `${BASE_URL}/articles/${a.slug}/`,
       lastModified: last,
       changeFrequency: "monthly",
       priority: 0.7,

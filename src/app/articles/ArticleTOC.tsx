@@ -63,9 +63,8 @@ export default function ArticleTOC({
                 <li key={it.id} className={it.level === 3 ? "pl-4" : ""}>
                   <a
                     href={`#${it.id}`}
-                    className={`block text-sm underline-offset-2 hover:underline ${
-                      activeId === it.id ? "text-blue-700" : "text-neutral-700"
-                    }`}
+                    className={`block text-sm underline-offset-2 hover:underline ${activeId === it.id ? "text-blue-700" : "text-neutral-700"
+                      }`}
                   >
                     {it.text}
                   </a>
@@ -89,9 +88,8 @@ export default function ArticleTOC({
                   <li key={it.id} className={it.level === 3 ? "pl-4" : ""}>
                     <a
                       href={`#${it.id}`}
-                      className={`block text-sm underline-offset-2 hover:underline ${
-                        activeId === it.id ? "text-blue-700" : "text-neutral-700"
-                      }`}
+                      className={`block text-sm underline-offset-2 hover:underline ${activeId === it.id ? "text-blue-700" : "text-neutral-700"
+                        }`}
                     >
                       {it.text}
                     </a>
