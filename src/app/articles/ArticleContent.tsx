@@ -5,7 +5,7 @@ export default function ArticleContent({ html }: { html: string }) {
    const ref = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
-      const root = ref.current; 
+      const root = ref.current;
       if (!root) return;
 
       const pres = Array.from(root.querySelectorAll("pre"));
